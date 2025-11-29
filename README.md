@@ -3,7 +3,20 @@
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftijs%2FATProtoFoundation%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tijs/ATProtoFoundation)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftijs%2FATProtoFoundation%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/tijs/ATProtoFoundation)
 
-A Swift package providing foundational types and utilities for building AT Protocol (atproto) iOS applications.
+Building blocks for AT Protocol iOS apps. Parse rich text with facets, handle OAuth authentication via a backend, and work with timeline data from Bluesky and other AT Protocol services.
+
+## When to use this package
+
+**Good fit if you:**
+- Are building an iOS/macOS app that connects to Bluesky or AT Protocol services
+- Need to parse and display rich text posts with links, mentions, and hashtags
+- Want Iron Session OAuth (Backend-For-Frontend pattern with HttpOnly cookies)
+- Prefer a lightweight foundation over a full-featured SDK
+
+**Less ideal if you:**
+- Need a complete AT Protocol client with all XRPC methods
+- Want to run your own PDS or build server-side tooling
+- Need cross-platform support beyond Apple platforms
 
 ## Requirements
 
