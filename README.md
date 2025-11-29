@@ -1,5 +1,8 @@
 # ATProtoFoundation
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftijs%2FATProtoFoundation%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/tijs/ATProtoFoundation)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Ftijs%2FATProtoFoundation%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/tijs/ATProtoFoundation)
+
 A Swift package providing foundational types and utilities for building AT Protocol (atproto) iOS applications.
 
 ## Requirements
@@ -15,7 +18,7 @@ Add ATProtoFoundation to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/tijs/ATProtoFoundation.git", from: "1.0.0")
+    .package(url: "https://github.com/tijs/ATProtoFoundation.git", from: "1.1.0")
 ]
 ```
 
