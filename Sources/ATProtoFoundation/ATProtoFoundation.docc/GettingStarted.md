@@ -34,7 +34,7 @@ let mentionFacet = ATProtoFacet(
 )
 
 // Create the record
-let record = ATProtoRecord(
+let record = BlueskyPostRecord(
     text: "Check out @username.bsky.social's post!",
     facets: [mentionFacet]
 )
@@ -52,8 +52,8 @@ When receiving data from AT Protocol APIs, use ``TimelineRecord`` to parse the r
 let jsonData = /* ... from API ... */
 let timelineRecord = try JSONDecoder().decode(TimelineRecord.self, from: jsonData)
 
-// Convert to ATProtoRecord for rich text processing
-let record = ATProtoRecord(from: timelineRecord)
+// Convert to BlueskyPostRecord for rich text processing
+let record = BlueskyPostRecord(from: timelineRecord)
 ```
 
 ## Authentication with BFF Pattern

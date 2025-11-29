@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   The old names leaked a backend implementation detail. "Iron Session" refers to an npm package used by the server - the Swift client simply handles opaque session tokens via cookies and has no dependency on iron-session.
 
+- **Renamed `ATProtoRecord` to `BlueskyPostRecord`** (breaking change for imports)
+
+  The struct specifically represents Bluesky posts (`app.bsky.feed.post`), not generic AT Protocol records. The new name accurately reflects its purpose.
+
 ## [1.1.0] - 2025-11-29
 
 ### Added
@@ -33,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Models**
-  - `ATProtoRecord`, `ATProtoFacet`, `ATProtoFeature` for rich text handling with markdown formatting
+  - `BlueskyPostRecord`, `ATProtoFacet`, `ATProtoFeature` for rich text handling with markdown formatting
   - `TimelineRecord`, `TimelineFacet`, `FacetIndex`, `FacetFeature` for API response parsing
   - `AuthCredentials` and `AuthCredentialsProtocol` for authentication data
   - `AuthenticationState` enum for auth state management

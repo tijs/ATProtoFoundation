@@ -41,9 +41,9 @@ Or add it via Xcode: File → Add Package Dependencies → Enter the repository 
 
 ### Models
 
-#### ATProtoRecord & Facets
+#### BlueskyPostRecord & Facets
 
-Types for working with AT Protocol records and rich text facets:
+Types for working with Bluesky post records and rich text facets:
 
 ```swift
 import ATProtoFoundation
@@ -53,7 +53,7 @@ let facet = ATProtoFacet(
     index: 10...28,
     feature: .link("https://example.com")
 )
-let record = ATProtoRecord(
+let record = BlueskyPostRecord(
     text: "Check out https://example.com for more",
     facets: [facet]
 )
@@ -75,8 +75,8 @@ Types for parsing timeline API responses:
 // Decode timeline data from API
 let record = try JSONDecoder().decode(TimelineRecord.self, from: jsonData)
 
-// Convert to rich ATProtoRecord with facets
-let atRecord = ATProtoRecord(from: record)
+// Convert to rich BlueskyPostRecord with facets
+let postRecord = BlueskyPostRecord(from: record)
 ```
 
 #### Lexicon Constants

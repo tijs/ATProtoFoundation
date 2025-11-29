@@ -20,7 +20,7 @@ ATProtoFoundation provides the building blocks for iOS apps that interact with t
 
 ### Records and Rich Text
 
-- ``ATProtoRecord``
+- ``BlueskyPostRecord``
 - ``ATProtoFacet``
 - ``ATProtoFeature``
 
