@@ -99,7 +99,9 @@ CommunityLexicon.locationAddress // "community.lexicon.location.address"
 
 #### Iron Session OAuth
 
-[Backend-For-Frontend (BFF) pattern](https://atproto.com/specs/oauth) OAuth implementation using HttpOnly cookies. Mobile apps can't safely store private keys, so the [recommended approach](https://github.com/bluesky-social/atproto/blob/main/packages/oauth/oauth-client-node/README.md) is to have a backend server manage OAuth sessions and use session cookies to authenticate the mobile client:
+[Backend-For-Frontend (BFF) pattern](https://atproto.com/specs/oauth) OAuth implementation using HttpOnly cookies. Mobile apps can't safely store private keys, so the [recommended approach](https://github.com/bluesky-social/atproto/blob/main/packages/oauth/oauth-client-node/README.md) is to have a backend server manage OAuth sessions and use session cookies to authenticate the mobile client.
+
+For the server-side implementation, see [@tijs/atproto-oauth](https://github.com/tijs/atproto-oauth) and its [mobile authentication guide](https://github.com/tijs/atproto-oauth/blob/main/docs/mobile-authentication.md):
 
 ```swift
 let coordinator = IronSessionMobileOAuthCoordinator(
