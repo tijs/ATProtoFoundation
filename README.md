@@ -10,7 +10,7 @@ Building blocks for AT Protocol iOS apps. Parse rich text with facets, handle OA
 **Good fit if you:**
 - Are building an iOS/macOS app that connects to Bluesky or AT Protocol services
 - Need to parse and display rich text posts with links, mentions, and hashtags
-- Want Iron Session OAuth (Backend-For-Frontend pattern with HttpOnly cookies)
+- Want BFF (Backend-For-Frontend) OAuth pattern with HttpOnly cookies
 - Prefer a lightweight foundation over a full-featured SDK
 
 **Less ideal if you:**
@@ -97,14 +97,14 @@ CommunityLexicon.locationAddress // "community.lexicon.location.address"
 
 ### Authentication
 
-#### Iron Session OAuth
+#### BFF OAuth
 
 [Backend-For-Frontend (BFF) pattern](https://atproto.com/specs/oauth) OAuth implementation using HttpOnly cookies. Mobile apps can't safely store private keys, so the [recommended approach](https://github.com/bluesky-social/atproto/blob/main/packages/oauth/oauth-client-node/README.md) is to have a backend server manage OAuth sessions and use session cookies to authenticate the mobile client.
 
 For the server-side implementation, see [@tijs/atproto-oauth](https://github.com/tijs/atproto-oauth) and its [mobile authentication guide](https://github.com/tijs/atproto-oauth/blob/main/docs/mobile-authentication.md):
 
 ```swift
-let coordinator = IronSessionMobileOAuthCoordinator(
+let coordinator = MobileOAuthCoordinator(
     storage: KeychainCredentialsStorage(),
     config: .default
 )
@@ -116,7 +116,7 @@ let authURL = try await coordinator.startOAuthFlow()
 try await coordinator.completeOAuthFlow(callbackURL: url)
 
 // Refresh session
-let credentials = try await coordinator.refreshIronSession()
+let credentials = try await coordinator.refreshSession()
 ```
 
 #### Credentials Storage
@@ -153,12 +153,12 @@ let config = OAuthConfiguration(
 
 ### Networking
 
-#### IronSessionAPIClient
+#### BFFAPIClient
 
 HTTP client with automatic session management:
 
 ```swift
-let client = IronSessionAPIClient(
+let client = BFFAPIClient(
     credentialsStorage: storage,
     config: .default
 )

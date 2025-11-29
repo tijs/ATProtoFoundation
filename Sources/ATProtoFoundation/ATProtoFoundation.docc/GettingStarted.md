@@ -56,7 +56,7 @@ let timelineRecord = try JSONDecoder().decode(TimelineRecord.self, from: jsonDat
 let record = ATProtoRecord(from: timelineRecord)
 ```
 
-## Authentication with Iron Session
+## Authentication with BFF Pattern
 
 ATProtoFoundation uses the Backend-For-Frontend (BFF) pattern for OAuth, where sensitive tokens are managed server-side using HttpOnly cookies.
 
@@ -77,7 +77,7 @@ let config = OAuthConfiguration(
     callbackURLScheme: "your-app"
 )
 
-let coordinator = IronSessionMobileOAuthCoordinator(
+let coordinator = MobileOAuthCoordinator(
     storage: storage,
     config: config
 )
@@ -95,7 +95,7 @@ let authURL = try await coordinator.startOAuthFlow()
 try await coordinator.completeOAuthFlow(callbackURL: callbackURL)
 
 // 4. Credentials are now stored and can be refreshed
-let credentials = try await coordinator.refreshIronSession()
+let credentials = try await coordinator.refreshSession()
 ```
 
 ## Date Parsing

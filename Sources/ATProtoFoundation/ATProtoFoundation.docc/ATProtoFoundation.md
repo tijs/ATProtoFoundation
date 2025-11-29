@@ -7,7 +7,7 @@ A Swift package providing foundational types and utilities for building AT Proto
 ATProtoFoundation provides the building blocks for iOS apps that interact with the AT Protocol network (including Bluesky). It includes:
 
 - Rich text record types with facet support (links, mentions, hashtags)
-- Iron Session OAuth authentication with Backend-For-Frontend (BFF) pattern
+- BFF (Backend-For-Frontend) OAuth authentication pattern
 - Secure credential storage options
 - Timeline API response parsing
 - Date parsing utilities
@@ -33,7 +33,7 @@ ATProtoFoundation provides the building blocks for iOS apps that interact with t
 
 ### Authentication
 
-- ``IronSessionMobileOAuthCoordinator``
+- ``MobileOAuthCoordinator``
 - ``OAuthConfiguration``
 - ``AuthCredentials``
 - ``AuthCredentialsProtocol``
@@ -47,7 +47,7 @@ ATProtoFoundation provides the building blocks for iOS apps that interact with t
 
 ### Networking
 
-- ``IronSessionAPIClient``
+- ``BFFAPIClient``
 - ``URLSessionProtocol``
 
 ### Utilities
