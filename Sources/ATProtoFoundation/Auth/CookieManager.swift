@@ -18,6 +18,7 @@ public struct SavedSessionCookie: Sendable {
 /// Centralizes cookie creation, storage, and retrieval logic that was previously
 /// duplicated across multiple components. Provides both protocol abstraction for
 /// testing and a production implementation using HTTPCookieStorage.
+@MainActor
 public protocol CookieManagerProtocol: Sendable {
     /// Save a session cookie with the given session token and expiration
     /// - Parameters:
@@ -37,7 +38,8 @@ public protocol CookieManagerProtocol: Sendable {
 }
 
 /// Production implementation of CookieManagerProtocol using HTTPCookieStorage
-public final class HTTPCookieManager: CookieManagerProtocol, @unchecked Sendable {
+@MainActor
+public final class HTTPCookieManager: CookieManagerProtocol {
     private let cookieStorage: HTTPCookieStorage
     private let cookieName: String
 
@@ -93,54 +95,36 @@ public final class HTTPCookieManager: CookieManagerProtocol, @unchecked Sendable
 }
 
 /// Mock implementation for testing
-public final class MockCookieManager: CookieManagerProtocol, @unchecked Sendable {
-    private let lock = NSLock()
+@MainActor
+public final class MockCookieManager: CookieManagerProtocol {
     private var _savedCookies: [SavedSessionCookie] = []
     private var _clearedDomains: [String] = []
     private var _mockHasValidCookie = false
 
     public var savedCookies: [SavedSessionCookie] {
-        lock.lock()
-        defer { lock.unlock() }
-        return _savedCookies
+        _savedCookies
     }
 
     public var clearedDomains: [String] {
-        lock.lock()
-        defer { lock.unlock() }
-        return _clearedDomains
+        _clearedDomains
     }
 
     public var mockHasValidCookie: Bool {
-        get {
-            lock.lock()
-            defer { lock.unlock() }
-            return _mockHasValidCookie
-        }
-        set {
-            lock.lock()
-            defer { lock.unlock() }
-            _mockHasValidCookie = newValue
-        }
+        get { _mockHasValidCookie }
+        set { _mockHasValidCookie = newValue }
     }
 
     public init() {}
 
     public func saveSessionCookie(sessionToken: String, expiresAt: Date, domain: String) {
-        lock.lock()
-        defer { lock.unlock() }
         _savedCookies.append(SavedSessionCookie(token: sessionToken, expiresAt: expiresAt, domain: domain))
     }
 
     public func clearSessionCookie(domain: String) {
-        lock.lock()
-        defer { lock.unlock() }
         _clearedDomains.append(domain)
     }
 
     public func hasValidSessionCookie(domain: String) -> Bool {
-        lock.lock()
-        defer { lock.unlock() }
-        return _mockHasValidCookie
+        _mockHasValidCookie
     }
 }

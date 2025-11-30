@@ -17,10 +17,8 @@ import Foundation
 ///
 /// This provides security benefits where OAuth tokens and DPoP
 /// never leave the backend server.
-///
-/// Note: This class performs network operations and should NOT be @MainActor isolated
-/// to avoid blocking the UI thread. Network calls run on background threads.
-public final class MobileOAuthCoordinator: @unchecked Sendable {
+@MainActor
+public final class MobileOAuthCoordinator {
 
     // MARK: - Properties
 

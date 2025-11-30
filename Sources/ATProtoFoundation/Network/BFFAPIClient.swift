@@ -29,10 +29,8 @@ public struct MultipartFile {
 /// - Backend manages OAuth tokens server-side
 /// - Client uses HttpOnly session cookies for authentication
 /// - No bearer tokens exposed to client
-///
-/// Note: This class performs network operations and should NOT be @MainActor isolated
-/// to avoid blocking the UI thread. Network calls run on background threads.
-public final class BFFAPIClient: @unchecked Sendable {
+@MainActor
+public final class BFFAPIClient {
 
     // MARK: - Properties
 
