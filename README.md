@@ -79,6 +79,53 @@ let record = try JSONDecoder().decode(TimelineRecord.self, from: jsonData)
 let postRecord = BlueskyPostRecord(from: record)
 ```
 
+#### Community Lexicon Models
+
+Models for [community lexicons](https://github.com/lexicon-community/lexicon) - standardized schemas for common data types:
+
+**Bookmarks**
+```swift
+let bookmark = Bookmark(
+    subject: "https://example.com/article",
+    tags: ["reading-list", "tech"]
+)
+```
+
+**Calendar Events**
+```swift
+let event = CalendarEvent(
+    name: "Swift Meetup",
+    description: "Monthly developer meetup",
+    startsAt: Date(),
+    mode: .hybrid,
+    status: .scheduled,
+    locations: [.geo(GeoCoordinates(latitude: 37.7749, longitude: -122.4194))]
+)
+
+let rsvp = CalendarRSVP(subject: eventRef, status: .going)
+```
+
+**Interactions**
+```swift
+let like = InteractionLike(subject: postRef)
+```
+
+**Locations**
+```swift
+let geo = GeoCoordinates(latitude: 37.7749, longitude: -122.4194, name: "San Francisco")
+let address = CommunityAddress(country: "US", locality: "San Francisco", street: "123 Main St")
+let fsq = FoursquareLocation(fsqPlaceId: "4b8c3d87f964a520f7c532e3")
+let h3 = H3Location(value: "8928308280fffff")
+```
+
+**Payments**
+```swift
+let wallet = WebMonetizationWallet(
+    address: "https://ilp.uphold.com/abc123",
+    note: "Support my work"
+)
+```
+
 #### Lexicon Constants
 
 Extensible constants for AT Protocol lexicon identifiers:
@@ -91,8 +138,25 @@ BlueskyLexicon.richTextMention // "app.bsky.richtext.facet#mention"
 BlueskyLexicon.richTextTag     // "app.bsky.richtext.facet#tag"
 
 // Community lexicons
-CommunityLexicon.locationGeo     // "community.lexicon.location.geo"
-CommunityLexicon.locationAddress // "community.lexicon.location.address"
+CommunityLexicon.bookmark           // "community.lexicon.bookmarks.bookmark"
+CommunityLexicon.calendarEvent      // "community.lexicon.calendar.event"
+CommunityLexicon.calendarRSVP       // "community.lexicon.calendar.rsvp"
+CommunityLexicon.interactionLike    // "community.lexicon.interaction.like"
+CommunityLexicon.locationGeo        // "community.lexicon.location.geo"
+CommunityLexicon.locationAddress    // "community.lexicon.location.address"
+CommunityLexicon.locationFoursquare // "community.lexicon.location.fsq"
+CommunityLexicon.locationH3         // "community.lexicon.location.hthree"
+CommunityLexicon.webMonetization    // "community.lexicon.payments.webMonetization"
+```
+
+#### Rich Text Processing
+
+Detect and create facets from text:
+
+```swift
+let processor = RichTextProcessor()
+let facets = processor.detectFacets(in: "Check out https://example.com and @alice.bsky.social #swift")
+// Returns RichTextFacet array with links, mentions, and hashtags
 ```
 
 ### Authentication
@@ -104,9 +168,21 @@ CommunityLexicon.locationAddress // "community.lexicon.location.address"
 For the server-side implementation, see [@tijs/atproto-oauth](https://github.com/tijs/atproto-oauth) and its [mobile authentication guide](https://github.com/tijs/atproto-oauth/blob/main/docs/mobile-authentication.md):
 
 ```swift
+let config = OAuthConfiguration(
+    baseURL: URL(string: "https://your-backend.app")!,
+    userAgent: "YourApp/1.0 (iOS)",
+    sessionCookieName: "sid",
+    cookieDomain: "your-backend.app",
+    callbackURLScheme: "your-app",
+    sessionDuration: 86400 * 7,
+    refreshThreshold: 3600,
+    maxRetryAttempts: 3,
+    maxRetryDelay: 8.0
+)
+
 let coordinator = MobileOAuthCoordinator(
     storage: KeychainCredentialsStorage(),
-    config: .default
+    config: config
 )
 
 // Start OAuth flow
@@ -160,7 +236,7 @@ HTTP client with automatic session management:
 ```swift
 let client = BFFAPIClient(
     credentialsStorage: storage,
-    config: .default
+    config: config  // Use same OAuthConfiguration as coordinator
 )
 
 // GET request

@@ -1,6 +1,5 @@
 @testable import ATProtoFoundation
 import Foundation
-import Foundation
 import Testing
 
 // MARK: - Test Utilities
@@ -8,9 +7,9 @@ import Testing
 /// Utilities for creating test instances and mock data
 public enum TestUtilities {
     // MARK: - Mock Data
-    
+
     // Place creation removed as it depends on AnchorKit
-    
+
     // AuthCredentials creation methods removed to avoid SwiftData ModelContainer issues in CI.
     // Tests that need credentials use mock storage or service-level mocking instead.
 }

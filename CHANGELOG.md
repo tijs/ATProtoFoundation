@@ -5,6 +5,48 @@ All notable changes to ATProtoFoundation will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-11-30
+
+### Added
+
+- **Community Lexicon Models** - Full support for [community lexicons](https://github.com/lexicon-community/lexicon):
+  - `Bookmark` - Bookmarking links with optional tags
+  - `CalendarEvent`, `CalendarRSVP`, `CalendarEventURI` - Calendar events with RSVP support
+  - `CalendarEventMode`, `CalendarEventStatus`, `RSVPStatus` - Event enums
+  - `CalendarEventLocation` - Union type for event locations
+  - `InteractionLike` - Cross-app like interactions
+  - `FoursquareLocation` - Foursquare Open Source Places integration
+  - `H3Location` - H3 geospatial indexing support
+  - `WebMonetizationWallet` - Web Monetization payment addresses
+
+- **Rich Text Lexicon** - New `RichTextLexicon.swift` with organized rich text models
+
+- **Lexicon Constants** - Extended `CommunityLexicon` with all new type identifiers
+
+### Changed
+
+- **`CommunityAddress` now requires `country` parameter** (breaking change)
+
+  Per the community lexicon spec, `country` is a required field. Update calls:
+  ```swift
+  // Before
+  CommunityAddress(name: "Place")
+  // After
+  CommunityAddress(country: "US", name: "Place")
+  ```
+
+- **`OAuthConfiguration` no longer has a default** (breaking change)
+
+  The `config` parameter is now required in `MobileOAuthCoordinator` and `BFFAPIClient`. This removes Anchor-specific defaults from the public package.
+
+- **`TimelineFacet` now uses `ByteRange` instead of `FacetIndex`** (breaking change)
+
+### Removed
+
+- **`FacetIndex`** - Use `ByteRange` instead (identical structure)
+- **`CommunityAddressRecord`** - Use `CommunityAddress` instead
+- **`OAuthConfiguration.default`** - Create your own configuration
+
 ## [1.2.0] - 2025-11-29
 
 ### Changed

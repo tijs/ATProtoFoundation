@@ -26,25 +26,12 @@ public struct TimelineRecord: Codable, Sendable {
 
 /// Facet data from timeline API response
 public struct TimelineFacet: Codable, Sendable {
-    public let index: FacetIndex
+    public let index: ByteRange
     public let features: [FacetFeature]
 
-    public init(index: FacetIndex, features: [FacetFeature]) {
+    public init(index: ByteRange, features: [FacetFeature]) {
         self.index = index
         self.features = features
-    }
-}
-
-/// Byte range index for facets in API responses
-///
-/// AT Protocol uses byte ranges, not character ranges, for facet positions.
-public struct FacetIndex: Codable, Sendable {
-    public let byteStart: Int
-    public let byteEnd: Int
-
-    public init(byteStart: Int, byteEnd: Int) {
-        self.byteStart = byteStart
-        self.byteEnd = byteEnd
     }
 }
 
@@ -158,13 +145,13 @@ extension ATProtoFeature {
     /// - Returns: Converted feature, or nil if type not supported
     public init?(from featureData: FacetFeature) {
         switch featureData.type {
-        case "app.bsky.richtext.facet#link":
+        case BlueskyLexicon.richTextLink:
             guard let uri = featureData.uri else { return nil }
             self = .link(uri)
-        case "app.bsky.richtext.facet#mention":
+        case BlueskyLexicon.richTextMention:
             guard let did = featureData.did else { return nil }
             self = .mention(did)
-        case "app.bsky.richtext.facet#tag":
+        case BlueskyLexicon.richTextTag:
             guard let tag = featureData.tag else { return nil }
             self = .hashtag(tag)
         default:

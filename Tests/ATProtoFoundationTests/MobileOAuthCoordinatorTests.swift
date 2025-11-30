@@ -9,6 +9,21 @@ import Foundation
 import Testing
 @testable import ATProtoFoundation
 
+// MARK: - Test Configuration
+
+/// Test configuration for OAuth tests
+private let testConfig = OAuthConfiguration(
+    baseURL: URL(string: "https://dropanchor.app")!,
+    userAgent: "TestApp/1.0 (iOS)",
+    sessionCookieName: "sid",
+    cookieDomain: "dropanchor.app",
+    callbackURLScheme: "anchor-app",
+    sessionDuration: 60 * 60 * 24 * 7, // 7 days
+    refreshThreshold: 60 * 60, // 1 hour
+    maxRetryAttempts: 3,
+    maxRetryDelay: 8.0
+)
+
 // MARK: - Mobile OAuth Coordinator Tests
 
 @Suite("MobileOAuthCoordinator", .tags(.unit, .oauth, .auth))
@@ -21,7 +36,7 @@ struct MobileOAuthCoordinatorTests {
     func startOAuthFlowGeneratesCorrectURL() async throws {
         let storage = InMemoryCredentialsStorage()
         let session = MockURLSession()
-        let config = OAuthConfiguration.default
+        let config = testConfig
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
@@ -91,7 +106,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: cookieManager,
             logger: logger
         )
@@ -127,7 +142,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: MockLogger()
         )
@@ -148,7 +163,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -172,7 +187,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: MockLogger()
         )
@@ -202,7 +217,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -235,7 +250,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: MockLogger()
         )
@@ -268,7 +283,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -324,7 +339,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: cookieManager,
             logger: logger
         )
@@ -358,7 +373,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -401,7 +416,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -444,7 +459,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: MockLogger()
         )
@@ -500,7 +515,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -537,7 +552,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: MockCookieManager(),
             logger: logger
         )
@@ -575,7 +590,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: cookieManager,
             logger: MockLogger()
         )
@@ -628,7 +643,7 @@ struct MobileOAuthCoordinatorTests {
         let coordinator = MobileOAuthCoordinator(
             credentialsStorage: storage,
             session: session,
-            config: .default,
+            config: testConfig,
             cookieManager: cookieManager,
             logger: MockLogger()
         )

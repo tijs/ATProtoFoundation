@@ -33,20 +33,7 @@ public struct OAuthConfiguration: Sendable {
     /// Maximum delay between retries (8 seconds)
     public let maxRetryDelay: TimeInterval
 
-    /// Default production configuration for Anchor app
-    public static let `default` = OAuthConfiguration(
-        baseURL: URL(string: "https://dropanchor.app")!,
-        userAgent: "AnchorApp/1.0 (iOS)",
-        sessionCookieName: "sid",
-        cookieDomain: "dropanchor.app",
-        callbackURLScheme: "anchor-app",
-        sessionDuration: 60 * 60 * 24 * 7, // 7 days
-        refreshThreshold: 60 * 60, // 1 hour
-        maxRetryAttempts: 3,
-        maxRetryDelay: 8.0
-    )
-
-    /// Initialize with custom configuration
+    /// Initialize with configuration for your app
     public init(
         baseURL: URL,
         userAgent: String,

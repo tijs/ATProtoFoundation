@@ -35,7 +35,7 @@ public final class MobileOAuthCoordinator: @unchecked Sendable {
     public init(
         credentialsStorage: CredentialsStorageProtocol,
         session: URLSessionProtocol = URLSession.shared,
-        config: OAuthConfiguration = .default,
+        config: OAuthConfiguration,
         cookieManager: CookieManagerProtocol = HTTPCookieManager(),
         logger: Logger = DebugLogger()
     ) {

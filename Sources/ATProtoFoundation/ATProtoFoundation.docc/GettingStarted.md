@@ -111,6 +111,65 @@ if let date = ISO8601DateFormatter.flexibleDate(from: dateString) {
 }
 ```
 
+## Community Lexicon Models
+
+ATProtoFoundation includes models for [community lexicons](https://github.com/lexicon-community/lexicon) - standardized schemas for common data types across AT Protocol applications.
+
+### Bookmarks
+
+```swift
+let bookmark = Bookmark(
+    subject: "https://example.com/article",
+    tags: ["reading-list", "tech"]
+)
+```
+
+### Calendar Events
+
+```swift
+let event = CalendarEvent(
+    name: "Swift Meetup",
+    description: "Monthly developer meetup",
+    startsAt: Date(),
+    mode: .hybrid,
+    status: .scheduled
+)
+
+// RSVP to an event
+let rsvp = CalendarRSVP(subject: eventRef, status: .going)
+```
+
+### Locations
+
+```swift
+// Geographic coordinates
+let geo = GeoCoordinates(latitude: 37.7749, longitude: -122.4194, name: "San Francisco")
+
+// Physical address
+let address = CommunityAddress(country: "US", locality: "San Francisco", street: "123 Main St")
+
+// Foursquare place
+let fsq = FoursquareLocation(fsqPlaceId: "4b8c3d87f964a520f7c532e3")
+
+// H3 encoded location
+let h3 = H3Location(value: "8928308280fffff")
+```
+
+### Interactions
+
+```swift
+let like = InteractionLike(subject: postRef)
+```
+
+### Payments
+
+```swift
+let wallet = WebMonetizationWallet(
+    address: "https://ilp.uphold.com/abc123",
+    note: "Support my work"
+)
+```
+
 ## Lexicon Constants
 
 Use predefined constants for AT Protocol lexicon identifiers:
@@ -121,5 +180,22 @@ let postType = BlueskyLexicon.feedPost  // "app.bsky.feed.post"
 let linkType = BlueskyLexicon.richTextLink  // "app.bsky.richtext.facet#link"
 
 // Community lexicons
-let geoType = CommunityLexicon.locationGeo  // "community.lexicon.location.geo"
+CommunityLexicon.bookmark           // "community.lexicon.bookmarks.bookmark"
+CommunityLexicon.calendarEvent      // "community.lexicon.calendar.event"
+CommunityLexicon.interactionLike    // "community.lexicon.interaction.like"
+CommunityLexicon.locationGeo        // "community.lexicon.location.geo"
+CommunityLexicon.locationAddress    // "community.lexicon.location.address"
+CommunityLexicon.locationFoursquare // "community.lexicon.location.fsq"
+CommunityLexicon.locationH3         // "community.lexicon.location.hthree"
+CommunityLexicon.webMonetization    // "community.lexicon.payments.webMonetization"
+```
+
+## Rich Text Processing
+
+Detect links, mentions, and hashtags in text:
+
+```swift
+let processor = RichTextProcessor()
+let facets = processor.detectFacets(in: "Check out https://example.com and @alice.bsky.social #swift")
+// Returns RichTextFacet array with byte ranges and features
 ```

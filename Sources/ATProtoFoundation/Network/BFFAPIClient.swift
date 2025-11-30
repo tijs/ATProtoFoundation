@@ -46,7 +46,7 @@ public final class BFFAPIClient: @unchecked Sendable {
     public init(
         credentialsStorage: CredentialsStorageProtocol,
         session: URLSessionProtocol = URLSession.shared,
-        config: OAuthConfiguration = .default,
+        config: OAuthConfiguration,
         logger: Logger = DebugLogger()
     ) {
         self.credentialsStorage = credentialsStorage

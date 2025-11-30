@@ -74,7 +74,7 @@ struct DateParsingTests {
             "2025-13-45", // Invalid month/day
             "",
             "2025",
-            "2025-01",
+            "2025-01"
         ]
 
         for dateString in invalidStrings {

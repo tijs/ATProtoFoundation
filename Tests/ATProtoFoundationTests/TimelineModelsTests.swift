@@ -58,15 +58,15 @@ struct TimelineModelsTests {
         #expect(record.facets?[0].features.count == 1)
     }
 
-    // MARK: - FacetIndex Tests
+    // MARK: - ByteRange Tests
 
-    @Test("FacetIndex decodes byte positions")
+    @Test("ByteRange decodes byte positions")
     func facetIndexDecodesBytePositions() throws {
         let json = """
         { "byteStart": 0, "byteEnd": 19 }
         """.data(using: .utf8)!
 
-        let index = try JSONDecoder().decode(FacetIndex.self, from: json)
+        let index = try JSONDecoder().decode(ByteRange.self, from: json)
 
         #expect(index.byteStart == 0)
         #expect(index.byteEnd == 19)
@@ -146,7 +146,7 @@ struct TimelineModelsTests {
     @Test("BlueskyPostRecord converts facets from TimelineRecord")
     func blueskyPostRecordConvertsFacets() {
         let timelineFacet = TimelineFacet(
-            index: FacetIndex(byteStart: 0, byteEnd: 19),
+            index: ByteRange(byteStart: 0, byteEnd: 19),
             features: [
                 FacetFeature(
                     type: "app.bsky.richtext.facet#link",
@@ -178,7 +178,7 @@ struct TimelineModelsTests {
     @Test("ATProtoFacet from link TimelineFacet")
     func atProtoFacetFromLinkTimelineFacet() {
         let timelineFacet = TimelineFacet(
-            index: FacetIndex(byteStart: 5, byteEnd: 24),
+            index: ByteRange(byteStart: 5, byteEnd: 24),
             features: [
                 FacetFeature(
                     type: "app.bsky.richtext.facet#link",
@@ -204,7 +204,7 @@ struct TimelineModelsTests {
     @Test("ATProtoFacet from mention TimelineFacet")
     func atProtoFacetFromMentionTimelineFacet() {
         let timelineFacet = TimelineFacet(
-            index: FacetIndex(byteStart: 0, byteEnd: 15),
+            index: ByteRange(byteStart: 0, byteEnd: 15),
             features: [
                 FacetFeature(
                     type: "app.bsky.richtext.facet#mention",
@@ -228,7 +228,7 @@ struct TimelineModelsTests {
     @Test("ATProtoFacet from hashtag TimelineFacet")
     func atProtoFacetFromHashtagTimelineFacet() {
         let timelineFacet = TimelineFacet(
-            index: FacetIndex(byteStart: 0, byteEnd: 8),
+            index: ByteRange(byteStart: 0, byteEnd: 8),
             features: [
                 FacetFeature(
                     type: "app.bsky.richtext.facet#tag",
@@ -252,7 +252,7 @@ struct TimelineModelsTests {
     @Test("ATProtoFacet returns nil for unsupported type")
     func atProtoFacetReturnsNilForUnsupportedType() {
         let timelineFacet = TimelineFacet(
-            index: FacetIndex(byteStart: 0, byteEnd: 10),
+            index: ByteRange(byteStart: 0, byteEnd: 10),
             features: [
                 FacetFeature(
                     type: "unsupported.type",
@@ -271,7 +271,7 @@ struct TimelineModelsTests {
     @Test("ATProtoFacet returns nil for invalid index range")
     func atProtoFacetReturnsNilForInvalidIndexRange() {
         let timelineFacet = TimelineFacet(
-            index: FacetIndex(byteStart: 20, byteEnd: 10), // End before start
+            index: ByteRange(byteStart: 20, byteEnd: 10), // End before start
             features: [
                 FacetFeature(
                     type: "app.bsky.richtext.facet#link",
